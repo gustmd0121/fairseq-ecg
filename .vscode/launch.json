@@ -10,8 +10,8 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["/home/data_storage/Physionet_ECG/WFDB_Ningbo/", "--dest", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg", "--ext", "mat", "--valid-percent", "0.1"] 
-            // "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "valid", "1", "0", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output"]
+            // "args": ["/home/data_storage/Physionet_ECG/WFDB_Ga/", "--dest", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg", "--ext", "mat", "--valid-percent", "0.1"] 
+            "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg", "train", "1", "0", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg"]
             // "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "valid", "1", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/valid.km", "10", "--percent", "0.1"]
             // "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "train","/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/train_cluster", "1", "0", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/"]
             // "args": ["--config-dir", "/home/hschung/ecg/multimodal/speech-resynthesis/fairseq/fairseq/examples/hubert/config/pretrain/", "--config-name", "hubert_base_librispeech", "task.data=/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "task.label_dir=/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/", "task.labels=[km]", "model.label_rate=100"]

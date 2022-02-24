@@ -6,11 +6,11 @@
 import logging
 import os
 import sys
-
+import torch 
 import soundfile as sf
 import torch
 import torchaudio
-
+from scipy.io import loadmat
 from feature_utils import get_path_iterator, dump_feature
 
 logging.basicConfig(
@@ -25,33 +25,34 @@ logger = logging.getLogger("dump_mfcc_feature")
 class MfccFeatureReader(object):
     def __init__(self, sample_rate):
         self.sample_rate = sample_rate
+        self.lfcc = torchaudio.transforms.LFCC(
+            sample_rate = 500,
+            n_filter = 128,
+        )
 
     def read_audio(self, path, ref_len=None):
-        wav, sr = sf.read(path)
-        assert sr == self.sample_rate, sr
-        if wav.ndim == 2:
-            wav = wav.mean(-1)
-        assert wav.ndim == 1, wav.ndim
-        if ref_len is not None and abs(ref_len - len(wav)) > 160:
-            logging.warning(f"ref {ref_len} != read {len(wav)} ({path})")
-        return wav
+        tensor = loadmat(path)
+        tensor = torch.from_numpy(tensor['val'])
+        tensor = tensor.float()
+        data_mean = torch.mean(tensor, 1, keepdim=True)
+        data_std = torch.std(tensor, 1, keepdim=True)
+        tensor -= data_mean
+        tensor /= data_std
+        
+        return tensor
 
     def get_feats(self, path, ref_len=None):
-        x = self.read_audio(path, ref_len)
+        x = self.read_audio(path, ref_len) 
         with torch.no_grad():
-            x = torch.from_numpy(x).float()
-            x = x.view(1, -1)
+            # x = x.view(1, -1) #[1, 70400]
 
-            mfccs = torchaudio.compliance.kaldi.mfcc(
-                waveform=x,
-                sample_frequency=self.sample_rate,
-                use_energy=False,
-            )  # (time, freq)
-            mfccs = mfccs.transpose(0, 1)  # (freq, time)
-            deltas = torchaudio.functional.compute_deltas(mfccs)
+            lfccs = self.lfcc(x)
+            lfccs = lfccs.transpose(1, 2)
+            deltas = torchaudio.functional.compute_deltas(lfccs)
             ddeltas = torchaudio.functional.compute_deltas(deltas)
-            concat = torch.cat([mfccs, deltas, ddeltas], dim=0)
-            concat = concat.transpose(0, 1).contiguous()  # (freq, time)
+            concat = torch.cat([lfccs, deltas, ddeltas], dim=1)
+            concat = concat.transpose(1,2).contiguous()           
+            
             return concat
 
 
