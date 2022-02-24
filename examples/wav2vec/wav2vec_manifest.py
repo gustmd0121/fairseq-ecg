@@ -6,13 +6,14 @@
 """
 Data pre-processing: build vocabularies and binarize training data.
 """
-
+import torch 
 import argparse
 import glob
 import os
 import random
 
 import soundfile
+from scipy.io import loadmat
 
 
 def get_parser():
@@ -72,7 +73,10 @@ def main(args):
             if args.path_must_contain and args.path_must_contain not in file_path:
                 continue
 
-            frames = soundfile.info(fname).frames
+            tensor = loadmat(fname)
+            tensor = torch.from_numpy(tensor['val'])
+            frames = tensor.shape[1]
+            
             dest = train_f if rand.random() > args.valid_percent else valid_f
             print(
                 "{}\t{}".format(os.path.relpath(file_path, dir_path), frames), file=dest

@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["/home/data_storage/Physionet_ECG/WFDB_Ningbo/", "--dest", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg", "--ext", "mat", "--valid-percent", "0.1"] 
+            // "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "valid", "1", "0", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output"]
+            // "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "valid", "1", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/valid.km", "10", "--percent", "0.1"]
+            // "args": ["/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "train","/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/train_cluster", "1", "0", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/"]
+            // "args": ["--config-dir", "/home/hschung/ecg/multimodal/speech-resynthesis/fairseq/fairseq/examples/hubert/config/pretrain/", "--config-name", "hubert_base_librispeech", "task.data=/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/", "task.label_dir=/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_features/", "task.labels=[km]", "model.label_rate=100"]
+            // "args": ["--num_clusters", "10", "--feature_type", "hubert", "--checkpoint_path", "/home/hschung/ecg/multimodal/speech-resynthesis/None/checkpoints/checkpoint_best.pt", "--layer", "7", "--manifest_path", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/train.tsv", "--out_kmeans_model_path", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_model_output/kmeans.km"]
+            // "args": ["--feature_type", "hubert", "--kmeans_model_path", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/k_means_model_output/kmeans.km", "--acoustic_model_path", "/home/hschung/ecg/multimodal/speech-resynthesis/None/checkpoints/checkpoint_best.pt", "--layer", "7", "--manifest_path", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/train.tsv", "--out_quantized_file_path", "/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/quantized/quantized.pt", "--extension", ".wav"]
+        }
+    ]
+}
