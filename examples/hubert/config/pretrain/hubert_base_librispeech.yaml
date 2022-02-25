@@ -16,9 +16,9 @@ checkpoint:
 distributed_training:
   ddp_backend: no_c10d
   distributed_backend: 'nccl'
-  distributed_world_size: 32
-  distributed_port: 29671
-  nprocs_per_node: 8
+  # distributed_world_size: 32
+  # distributed_port: 29671
+  nprocs_per_node: 32
   find_unused_parameters: true
 
 task:
@@ -27,9 +27,9 @@ task:
   label_dir: ???
   labels: ???
   label_rate: ${model.label_rate}
-  sample_rate: 16000
+  sample_rate: 500
   max_sample_size: 250000
-  min_sample_size: 32000
+  min_sample_size: 0
   pad_audio: false
   random_crop: true
   normalize: false # must be consistent with extractor

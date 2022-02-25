@@ -1,0 +1,4 @@
+- task.data=/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg
+- task.label_dir=/home/hschung/ecg/multimodal/speech-resynthesis/hubert_output/ecg/k_means_features/
+- task.labels=[km]
+- model.label_rate=100

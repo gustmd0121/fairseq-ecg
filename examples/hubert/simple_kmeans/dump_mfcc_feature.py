@@ -28,6 +28,7 @@ class MfccFeatureReader(object):
         self.lfcc = torchaudio.transforms.LFCC(
             sample_rate = 500,
             n_filter = 128,
+            n_lfcc = 312
         )
 
     def read_audio(self, path, ref_len=None):
@@ -51,7 +52,8 @@ class MfccFeatureReader(object):
             deltas = torchaudio.functional.compute_deltas(lfccs)
             ddeltas = torchaudio.functional.compute_deltas(deltas)
             concat = torch.cat([lfccs, deltas, ddeltas], dim=1)
-            concat = concat.transpose(1,2).contiguous()           
+            concat = concat.view(-1, concat.shape[2])
+            concat = concat.transpose(0,1).contiguous()           
             
             return concat
 
